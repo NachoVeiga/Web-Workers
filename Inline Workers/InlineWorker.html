@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <title>Inline Worker</title>
+    </head>
+    <body>
+        <p>Inline Worker</p>
+
+
+        <script id="worker" type="app/worker">
+            self.onmessage =function(me) {
+                postMessage('Recibido y reenviado: ' + me.data );
+            };
+
+        </script>
+
+        <script>
+            (function hola() {
+
+                // Creando el Inline Worker
+                var blob = new Blob([document.getElementById('worker').textContent]);   
+                var url = window.URL.createObjectURL(blob);
+                var worker = new Worker(url);
+
+                // Blob URL
+                console.log(url);
+
+                // Escuchando mensajes del Inline Worker
+                worker.addEventListener('message', function(me) {
+                	console.log(me);
+                    console.log(me.data);
+                });
+
+                // Enviando mensaje al Inline Worker
+                worker.postMessage('Mensaje del Hilo Principal, WEO');
+
+            })();
+            
+        </script>
+
+    </body>
+</html>

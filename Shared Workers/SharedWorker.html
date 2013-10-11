@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<p> Tools/Herramientas --> Developer tools </p>
+
+    <script>
+
+        var worker = new SharedWorker("sharedworker.js");
+
+        worker.port.addEventListener("message", function(me) {
+        	console.log(me.data);
+        });
+
+        worker.port.start();
+
+        worker.port.postMessage("");
+
+    </script>
+
+</body>
+</html>

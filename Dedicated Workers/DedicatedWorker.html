@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Web Workers</title>
+</head>
+<body>
+
+<p id="compatibilidad"></p>
+
+<p>Cronometro: <output id="segundos"></output> seg.</p>
+<button onclick="comenzar()">Comenzar</button> 
+<button onclick="detener()">Detener</button>
+
+<script type="text/javascript">
+
+	
+	(function(){	
+		var compatibilidad = "<ins>Tu navegador " + ((window.Worker) ? "soporta web workers</ins>"     : "no soporta web workers</ins>");
+		document.getElementById("compatibilidad").innerHTML = compatibilidad;
+	})();
+	 	
+
+		if(!window.Worker){
+			console.log ("Actualiza tu navegador")
+		}else{
+			
+			// Worker 1 - Creacion y mensajes
+
+			var worker = new Worker('cm.js');
+			worker.onmessage= function(me){
+			console.log(me);
+			console.log(me.data);
+			}
+			
+			worker.postMessage('Hola mundo');
+			
+			// Worker 2 - Cronometro y detener el worker
+
+			var crono;
+
+			function comenzar(){ 
+  				crono = new Worker("crono.js");
+  				crono.onmessage = function (me) {
+ 				document.getElementById("segundos").innerHTML=me.data;
+  				}
+			}	
+
+			function detener(){ 
+  				crono.terminate();
+			}
+		
+			// Worker 3 - Objeto Javascript y timeStamp
+   			
+   			var worker2    = new Worker('jsobjtime.js'),
+   				personajes =  [
+					{Nombre: "Chuck Norris" , Movil: 644532571},
+					{Bool: true , Apellido: "Simpson"},
+					{Nombre: "Walter" , Apellido: "White"}
+					];
+
+			worker2.postMessage(personajes);
+			worker2.addEventListener('message', function(me) {
+				console.log(me);
+				console.log(me.data);
+
+				// Transformando el timeStamp (milisegundos desde 1/1/1970) en algo legible
+				// ------------------------------------------------------------------------
+
+				var fecha = new Date(me.timeStamp);
+				console.log(fecha);
+				
+				// Hora,minutos y segundos de 2 digitos (05:02:09) 
+				var arrfecha = fecha.toString().split(" ");
+				console.log(arrfecha);
+				var hora = arrfecha[4];
+				console.log(hora);
+
+				// Día y mes de 2 digitos
+				var dia=((fecha.getDate())>=10)? (fecha.getDate()) : '0' + (fecha.getDate());
+				
+				// +1 porque getMonth() devuelve el numero del mes (0-11)
+				var mes=((fecha.getMonth()+1)>=10)? (fecha.getMonth()+1) : '0' + (fecha.getMonth()+1);  
+				
+				var diaMesAño =  dia + "-" +  mes + "-" + fecha.getFullYear();
+				console.log(diaMesAño);
+
+
+			});
+   			
+   			//var fecha = new Date(me.timeStamp);
+
+
+
+
+
+
+		}
+	
+
+
+ 
+
+</script>
+</body>
+</html>
