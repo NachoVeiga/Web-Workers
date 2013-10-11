@@ -70,16 +70,16 @@
 				var fecha = new Date(me.timeStamp);
 				console.log(fecha);
 				
-				// Hora,minutos y segundos de 2 digitos (05:02:09) 
+				// Hora,minutos y segundos de 2 dígitos (05:02:09) 
 				var arrfecha = fecha.toString().split(" ");
 				console.log(arrfecha);
 				var hora = arrfecha[4];
 				console.log(hora);
 
-				// Día y mes de 2 digitos
+				// Día y mes de 2 dígitos
 				var dia=((fecha.getDate())>=10)? (fecha.getDate()) : '0' + (fecha.getDate());
 				
-				// +1 porque getMonth() devuelve el numero del mes (0-11)
+				// +1 porque getMonth() devuelve el número del mes (0-11)
 				var mes=((fecha.getMonth()+1)>=10)? (fecha.getMonth()+1) : '0' + (fecha.getMonth()+1);  
 				
 				var diaMesAño =  dia + "-" +  mes + "-" + fecha.getFullYear();

@@ -2,32 +2,33 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>Web Workers</title>
 </head>
 <body>
 	<p> Tools/Herramientas --> Developer tools </p>
-	<script type="text/javascript">
+	
+<script type="text/javascript">
 
 	var worker = new Worker("error.js");
 	worker.addEventListener('error', function(error){
-    console.log(error);
+        console.log(error);
 
-	// Haciendo el timeStamp legible
-	var fecha = new Date(error.timeStamp);
-	var arrfecha = fecha.toString().split(" ");
-	var hora = arrfecha[4];
-	var mes=((fecha.getMonth()+1)>=10)? (fecha.getMonth()+1) : '0' + (fecha.getMonth()+1);  
-	var diaMes=((fecha.getDate())>=10)? (fecha.getDate()) : '0' + (fecha.getDate());
-	var dma =  diaMes + "/" +  mes + "/" + fecha.getFullYear();
+		// Haciendo el timeStamp legible
+		var fecha = new Date(error.timeStamp);
+		var arrfecha = fecha.toString().split(" ");
+		var hora = arrfecha[4];
+		var mes=((fecha.getMonth()+1)>=10)? (fecha.getMonth()+1) : '0' + (fecha.getMonth()+1);  
+		var diaMes=((fecha.getDate())>=10)? (fecha.getDate()) : '0' + (fecha.getDate());
+		var dma =  diaMes + "/" +  mes + "/" + fecha.getFullYear();
 
-	// Log del error, usé console.warn porque me gusta como queda,
-	// pero valdría console.log() o console.error()
-	console.warn(' Error en archivo: '+error.filename
+		// Log del error, usé console.warn porque me gusta como queda,
+		// pero valdría console.log() o console.error()
+		console.warn(' Error en archivo: '+error.filename
         + '\n Linea   : '+error.lineno
         + '\n Mensaje : '+error.message
 		+ '\n Fecha   : '+hora+' - '+dma); 
 	
-});
+	});
 
 </script>
 </body>
