@@ -6,7 +6,6 @@
     <body>
         <p>Inline Worker</p>
 
-
         <script id="worker" type="app/worker">
             self.onmessage =function(me) {
                 postMessage('Recibido y reenviado: ' + me.data );

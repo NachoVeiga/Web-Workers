@@ -16,7 +16,7 @@
 
 	
 	(function(){	
-		var compatibilidad = "<ins>Tu navegador " + ((window.Worker) ? "soporta web workers</ins>"     : "no soporta web workers</ins>");
+		var compatibilidad = "<ins>Tu navegador " + ((window.Worker) ? "soporta web workers</ins>" : "no soporta web workers</ins>");
 		document.getElementById("compatibilidad").innerHTML = compatibilidad;
 	})();
 	 	
@@ -25,12 +25,12 @@
 			console.log ("Actualiza tu navegador")
 		}else{
 			
-			// Worker 1 - Creacion y mensajes
+			// Worker 1 - Creación y mensajes
 
 			var worker = new Worker('cm.js');
 			worker.onmessage= function(me){
-			console.log(me);
-			console.log(me.data);
+				console.log(me);
+				console.log(me.data);
 			}
 			
 			worker.postMessage('Hola mundo');
@@ -42,7 +42,7 @@
 			function comenzar(){ 
   				crono = new Worker("crono.js");
   				crono.onmessage = function (me) {
- 				document.getElementById("segundos").innerHTML=me.data;
+ 					document.getElementById("segundos").innerHTML=me.data;
   				}
 			}	
 
@@ -84,23 +84,9 @@
 				
 				var diaMesAño =  dia + "-" +  mes + "-" + fecha.getFullYear();
 				console.log(diaMesAño);
-
-
 			});
-   			
-   			//var fecha = new Date(me.timeStamp);
-
-
-
-
-
-
 		}
 	
-
-
- 
-
 </script>
 </body>
 </html>
